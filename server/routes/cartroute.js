@@ -19,18 +19,21 @@ router.get('/', async (req, res) => {
   const items = await CartItem.find();
   res.json(items);
 });
-let cart = []; // Example cart array (in-memory)
 
-// DELETE item from cart by ID
-router.delete('/:id', (req, res) => {
+// DELETE item from cart by product ID
+router.delete('/:id', async (req, res) => {
   const id = parseInt(req.params.id);
-  const index = cart.findIndex(item => item.id === id);
 
-  if (index !== -1) {
-    cart.splice(index, 1);
-    res.status(200).json({ message: 'Item removed from cart' });
-  } else {
-    res.status(404).json({ error: 'Item not found' });
+  try {
+    const deletedItem = await CartItem.findOneAndDelete({ id: id });
+
+    if (deletedItem) {
+      res.status(200).json({ message: 'Item removed from cart' });
+    } else {
+      res.status(404).json({ error: 'Item not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Server error while removing item' });
   }
 });
 

@@ -56,9 +56,13 @@ export default function Cart() {
 
           <div className="mt-6 border-t pt-4 flex flex-col sm:flex-row items-center justify-between">
             <p className="text-xl font-bold text-gray-800">Total: ${total.toFixed(2)}</p>
-            <button className="mt-4 sm:mt-0 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition">
-              Proceed to Payment
-            </button>
+            <button
+  onClick={() => alert('Payment successful! 🎉')}
+  className="mt-4 sm:mt-0 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition"
+>
+  Proceed to Payment
+</button>
+
           </div>
         </>
       )}
