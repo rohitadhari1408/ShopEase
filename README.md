@@ -1,6 +1,4 @@
-Sure! Here's a sample **README.md** file tailored for your React + Express ShopEase app, including instructions on how to set up and start both frontend and backend:
 
-````markdown
 ShopEase
 
 ShopEase is a simple e-commerce React application with a Node.js + Express backend for managing the cart. It fetches products from a public API and allows users to add products to their cart, view cart contents, and remove items.
