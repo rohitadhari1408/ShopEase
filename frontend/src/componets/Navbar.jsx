@@ -1,8 +1,11 @@
 // src/components/Navbar.jsx
 import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react'; // Make sure you have lucide-react installed or replace with SVG
 
 export default function Navbar() {
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     { label: 'Home', path: '/' },
@@ -19,7 +22,7 @@ export default function Navbar() {
             <span className="text-gray-800">Shop</span><span className="text-blue-600">Ease</span>
           </Link>
 
-          {/* Nav Links */}
+          {/* Desktop Nav Links */}
           <div className="hidden md:flex space-x-8 items-center">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
@@ -41,8 +44,40 @@ export default function Navbar() {
               );
             })}
           </div>
+
+          {/* Mobile Menu Toggle */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-gray-800 hover:text-blue-600 focus:outline-none"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Mobile Nav Links */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-white px-4 pb-4 space-y-2">
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block text-base font-medium py-2 px-2 rounded transition duration-200 ${
+                  isActive ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </nav>
   );
 }
